@@ -161,7 +161,7 @@ func getRelation(client *madon.Client, accID int64) (madon.Relationship, error) 
 
 func goBoostStati(client *madon.Client, stati_chan <-chan madon.Status) {
 	for status := range stati_chan {
-		LogMadon_.Printf("Boosting Status with ID %d published by %s\n", status.ID, status.Account.Username)
+		LogMadon_.Printf("Boosting Status with ID %d published by @%s\n", status.ID, status.Account.Acct)
 		client.ReblogStatus(status.ID)
 	}
 }
@@ -171,7 +171,7 @@ func goTweetStati(client *madon.Client, birdclient *anaconda.TwitterApi, stati_c
 	tagstripper.AllowElements("br")
 	re_br2newline := regexp.MustCompile("<br[^/>]*/?>")
 	for status := range stati_chan {
-		LogMadon_.Printf("Tweeting Status with ID %d published by %s\n", status.ID, status.Account.Username)
+		LogMadon_.Printf("Tweeting Status with ID %d published by @%s\n", status.ID, status.Account.Acct)
 		text := strings.TrimSpace(html.UnescapeString(re_br2newline.ReplaceAllString(tagstripper.Sanitize(status.Content), "\n")))
 		twitter_media_ids := make([]string, 0, 4)
 		for _, media := range status.MediaAttachments {
