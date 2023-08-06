@@ -126,6 +126,10 @@ LISTENSTREAM:
 						continue
 					}
 					LogMadon_.Printf("goSubscribeStreamOfTagNames: Error event: [%s] %s\n", ev.Event, ev.Error)
+					// bail if the error starts with "read error"
+					if strings.HasPrefix(ev.Error.Error(), "read error") {
+						os.Exit(1)
+					}
 					continue
 				}
 				LogMadon_.Printf("goSubscribeStreamOfTagNames: Event: [%s]\n", ev.Event)
