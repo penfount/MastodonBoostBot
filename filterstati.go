@@ -15,6 +15,8 @@ type StatusFilterConfig struct {
 func goFilterStati(client *madon.Client, statusIn <-chan madon.Status, statusOut chan<- madon.Status, config StatusFilterConfig) {
 	defer close(statusOut)
 	already_seen_map := make(map[string]bool, 20)
+	currentAccount, _ := client.GetCurrentAccount()
+
 FILTERFOR:
 	for status := range statusIn {
 		passes_visibility_check := false
@@ -38,6 +40,11 @@ FILTERFOR:
 
 		if _, inmap := already_seen_map[status.ID]; inmap {
 			//already boosted this status "today", probably used more than one of our hashtags
+			continue FILTERFOR
+		}
+
+		if status.Account.ID == currentAccount.ID {
+			// don't boost statuses that this account posted
 			continue FILTERFOR
 		}
 
