@@ -114,7 +114,7 @@ LISTENSTREAM:
 	for {
 		select {
 		case v, ok := <-done:
-			if !ok || v == true { // done is closed, end of streaming
+			if !ok || v { // done is closed, end of streaming
 				break LISTENSTREAM
 			}
 		case ev := <-evChan:
@@ -129,7 +129,7 @@ LISTENSTREAM:
 					continue
 				}
 				LogMadon_.Printf("goSubscribeStreamOfTagNames: Event: [%s]\n", ev.Event)
-			case "update":
+			case "update", "status.update":
 				s := ev.Data.(madon.Status)
 				statusOutChan <- s
 			case "notification", "delete":
