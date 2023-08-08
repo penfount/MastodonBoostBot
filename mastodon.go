@@ -202,8 +202,8 @@ func goTweetStati(client *madon.Client, birdclient *anaconda.TwitterApi, stati_c
 	}
 }
 
-func goPrintStati(stati_chan <-chan madon.Status) {
-	for status := range stati_chan {
-		fmt.Printf("%+v\n", status)
-	}
-}
+// func goPrintStati(stati_chan <-chan madon.Status) {
+// 	for status := range stati_chan {
+// 		fmt.Printf("%+v\n", status)
+// 	}
+// }
