@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/McKael/madon"
+	"github.com/McKael/madon/v3"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -72,7 +72,7 @@ func main() {
 	// wait on Ctrl-C or sigInt or sigKill
 	{
 		ctrlc_c := make(chan os.Signal, 1)
-		signal.Notify(ctrlc_c, os.Interrupt, os.Kill, syscall.SIGTERM)
+		signal.Notify(ctrlc_c, os.Interrupt, syscall.SIGTERM)
 		<-ctrlc_c //block until ctrl+c is pressed || we receive SIGINT aka kill -1 || kill
 		LogMain_.Println("SIGINT received, exiting gracefully ...")
 	}
