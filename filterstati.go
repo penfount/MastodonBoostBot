@@ -1,7 +1,7 @@
 /// (c) Bernhard Tittelbach, 2019 - MIT License
 package main
 
-import "github.com/McKael/madon"
+import "github.com/McKael/madon/v3"
 
 type StatusFilterConfig struct {
 	must_have_visiblity        []string
@@ -14,7 +14,7 @@ type StatusFilterConfig struct {
 
 func goFilterStati(client *madon.Client, statusIn <-chan madon.Status, statusOut chan<- madon.Status, config StatusFilterConfig) {
 	defer close(statusOut)
-	already_seen_map := make(map[int64]bool, 20)
+	already_seen_map := make(map[string]bool, 20)
 FILTERFOR:
 	for status := range statusIn {
 		passes_visibility_check := false

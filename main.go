@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/McKael/madon"
+	"github.com/McKael/madon/v3"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
