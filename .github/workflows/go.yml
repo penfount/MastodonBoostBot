@@ -41,7 +41,7 @@ jobs:
 
     - name: (Main only) Create tag
       uses: actions/github-script@v7
-      if: github.ref_name == 'main'
+      if: github.ref_name == 'main' || github.ref_name == 'master'
       id: create-tag
       with:
         script: |
@@ -55,7 +55,7 @@ jobs:
           return tag_name
     - name: (Main only) Create release
       uses: softprops/action-gh-release@v2
-      if: github.ref_name == 'main'
+      if: github.ref_name == 'main' || github.ref_name == 'master'
       with:
         tag_name: v0.${{ github.run_number }}
         files: |
